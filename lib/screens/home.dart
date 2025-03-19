@@ -48,7 +48,7 @@ class Home extends StatelessWidget {
             Align(
               alignment: AlignmentDirectional(0, -1.2),
               child: Container(
-                height: 300,
+                height: 200,
                 width: 600,
                 decoration: BoxDecoration(color: Color(0xFFFFAB40)),
               ),
