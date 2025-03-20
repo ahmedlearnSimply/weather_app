@@ -56,7 +56,7 @@ class Home extends StatelessWidget {
             BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
               child: Container(
-                color: Colors.white,
+                color: Colors.transparent,
               ),
             )
           ],
