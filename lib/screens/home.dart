@@ -79,8 +79,14 @@ class Home extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Image.asset("assets/1.png"),
-                      Gap(10),
+                      Center(
+                        child: Container(
+                          width: 300,
+                          child: Image.asset(
+                            "assets/1.png",
+                          ),
+                        ),
+                      ),
                       Center(
                         child: Text(
                           "21C",
@@ -109,15 +115,15 @@ class Home extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Gap(30),
+                      Gap(40),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
                               Image.asset(
-                                "assets/2.png",
-                                scale: 10,
+                                "assets/11.png",
+                                scale: 8,
                               ),
                               Gap(10),
                               Column(
@@ -143,8 +149,8 @@ class Home extends StatelessWidget {
                               Row(
                                 children: [
                                   Image.asset(
-                                    "assets/11.png",
-                                    scale: 10,
+                                    "assets/12.png",
+                                    scale: 8,
                                   ),
                                   Gap(10),
                                   Column(
@@ -170,9 +176,79 @@ class Home extends StatelessWidget {
                                 ],
                               ),
                             ],
-                          )
+                          ),
                         ],
-                      )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        child: Divider(
+                          color: Colors.grey,
+                          thickness: .3,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/13.png",
+                                scale: 8,
+                              ),
+                              Gap(10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Weather Report",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Text(
+                                    "03:32 am",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Gap(10),
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    "assets/14.png",
+                                    scale: 8,
+                                  ),
+                                  Gap(10),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Weather Report",
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Text(
+                                        "03:32 am",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
