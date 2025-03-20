@@ -118,12 +118,11 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget _buildWeatherReportTile({
-    required String assetPath1,
-    required String assetPath2,
-    required String title,
-    required String time,
-  }) {
+  Widget _buildWeatherReportTile(
+      {required String assetPath1,
+      required String assetPath2,
+      required String title,
+      required String time}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
