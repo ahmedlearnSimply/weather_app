@@ -45,7 +45,8 @@ class Home extends StatelessWidget {
                 child: Container(
                   height: 200,
                   width: 600,
-                  decoration: BoxDecoration(color: Color(0xFFFFAB40)),
+                  decoration:
+                      BoxDecoration(color: Color.fromARGB(255, 214, 173, 118)),
                 ),
               ),
               BackdropFilter(
@@ -78,6 +79,100 @@ class Home extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Image.asset("assets/1.png"),
+                      Gap(10),
+                      Center(
+                        child: Text(
+                          "21C",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 40,
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          "THUNDERSTORM",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          "Friday 16 . 09:32am ",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                      Gap(30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/2.png",
+                                scale: 10,
+                              ),
+                              Gap(10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Weather Report",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Text(
+                                    "03:32 am",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Gap(10),
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    "assets/11.png",
+                                    scale: 10,
+                                  ),
+                                  Gap(10),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Weather Report",
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Text(
+                                        "03:32 am",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      )
                     ],
                   ),
                 ),
