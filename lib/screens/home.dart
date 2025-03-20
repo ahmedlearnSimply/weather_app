@@ -59,13 +59,22 @@ class Home extends StatelessWidget {
                 color: Colors.transparent,
               ),
             ),
-            SizedBox(
-              child: Column(
-                children: [
-                  Text(
-                    "da",
-                  )
-                ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  children: [
+                    Text(
+                      "Abu Kabir",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    )
+                  ],
+                ),
               ),
             )
           ],
