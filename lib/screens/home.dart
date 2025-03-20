@@ -58,6 +58,15 @@ class Home extends StatelessWidget {
               child: Container(
                 color: Colors.transparent,
               ),
+            ),
+            SizedBox(
+              child: Column(
+                children: [
+                  Text(
+                    "da",
+                  )
+                ],
+              ),
             )
           ],
         ),
