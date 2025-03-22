@@ -3,10 +3,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:weather_app/services/weather_services.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -84,21 +90,48 @@ class Home extends StatelessWidget {
   Widget _buildHeader() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text("Abu Kabir", style: TextStyle(color: Colors.white, fontSize: 18)),
-        Text("Good Morning",
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold)),
+        Text(
+          "Good Morning",
+          style: TextStyle(
+              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+        ),
       ],
     );
+  }
+
+//* test fetch weather
+  String? weatherInfo;
+  final WeatherServices weatherService = WeatherServices();
+  Future<void> fetchWeather() async {
+    try {
+      final weatherData = await weatherService.getWeather("London");
+      setState(() {
+        weatherInfo =
+            "Location: ${weatherData['location']['name']}, ${weatherData['location']['country']}\n"
+            "Temperature: ${weatherData['current']['temp_c']}°C\n"
+            "Condition: ${weatherData['current']['condition']['text']}";
+      });
+    } catch (e) {
+      setState(() {
+        weatherInfo = "Failed to load weather data";
+      });
+    }
   }
 
   Widget _buildWeatherDetails() {
     return Column(
       children: [
-        Center(child: Image.asset("assets/1.png", width: 300)),
+        GestureDetector(
+          onTap: fetchWeather,
+          child: Center(
+            child: Image.asset(
+              "assets/1.png",
+              width: 300,
+            ),
+          ),
+        ),
         const Center(
           child: Text(
             "21C",
