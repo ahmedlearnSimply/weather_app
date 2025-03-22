@@ -39,41 +39,6 @@ class _HomeState extends State<Home> {
                   children: [
                     _buildHeader(),
                     const Gap(10),
-                    BlocBuilder<WeatherBloc, WeatherState>(
-                      builder: (context, state) {
-                        if (state is WeatherLoading) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (state is WeatherLoaded) {
-                          final weather = state.weatherData;
-                          return Column(
-                            children: [
-                              Text("${weather["current"]["temp_c"]}C")
-                            ],
-                          );
-                        } else if (state is WeatherFailure) {
-                          return Center(
-                            child: Text(
-                              "Failed to load weather data.",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                              ),
-                            ),
-                          );
-                        } else {
-                          return Center(
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  context
-                                      .read<WeatherBloc>()
-                                      .add(FetchWeather("cairo"));
-                                },
-                                child: Text("load weather")),
-                          );
-                        }
-                      },
-                    ),
                     _buildWeatherDetails(),
                     const Gap(40),
                     Padding(
@@ -136,8 +101,7 @@ class _HomeState extends State<Home> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Abu Kabir",
-                style: TextStyle(color: Colors.white, fontSize: 18)),
+            Text(location, style: TextStyle(color: Colors.white, fontSize: 18)),
             Text(
               "Good Morning",
               style: TextStyle(
@@ -152,34 +116,51 @@ class _HomeState extends State<Home> {
   }
 
   Widget _buildWeatherDetails() {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () {},
-          child: Center(
-            child: Image.asset(
-              "assets/1.png",
-              width: 300,
+    return BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
+      if (state is WeatherLoading) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      } else if (state is WeatherLoaded) {
+        final data = state.weatherData;
+        final temp = data["current"]["temp_c"];
+        final condition = data["current"]["condition"]["text"];
+        final date = data["location"]["localtime"];
+
+        return Column(
+          children: [
+            GestureDetector(
+              onTap: () {},
+              child: Center(
+                child: Image.asset(
+                  "assets/1.png",
+                  width: 300,
+                ),
+              ),
             ),
-          ),
-        ),
-        const Center(
-          child: Text(
-            "21C",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 40),
-          ),
-        ),
-        const Center(
-          child: Text("THUNDERSTORM",
-              style: TextStyle(color: Colors.white, fontSize: 20)),
-        ),
-        const Center(
-          child: Text("Friday 16 . 09:32am",
-              style: TextStyle(color: Colors.grey, fontSize: 15)),
-        ),
-      ],
-    );
+            Center(
+              child: Text(
+                "$temp C",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40),
+              ),
+            ),
+            Center(
+              child: Text("${condition}",
+                  style: TextStyle(color: Colors.white, fontSize: 24)),
+            ),
+            Center(
+              child: Text("$date",
+                  style: TextStyle(color: Colors.grey, fontSize: 15)),
+            ),
+          ],
+        );
+      } else {
+        return const SizedBox.shrink();
+      }
+    });
   }
 
   Widget _buildWeatherReportTile(
