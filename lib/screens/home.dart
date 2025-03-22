@@ -2,7 +2,11 @@
 
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:weather_app/bloc/weather_bloc.dart';
+import 'package:weather_app/bloc/weather_event.dart';
+import 'package:weather_app/bloc/weather_state.dart';
 import 'package:weather_app/services/weather_services.dart';
 
 class Home extends StatefulWidget {
@@ -35,6 +39,41 @@ class _HomeState extends State<Home> {
                   children: [
                     _buildHeader(),
                     const Gap(10),
+                    BlocBuilder<WeatherBloc, WeatherState>(
+                      builder: (context, state) {
+                        if (state is WeatherLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (state is WeatherLoaded) {
+                          final weather = state.weatherData;
+                          return Column(
+                            children: [
+                              Text("${weather["current"]["temp_c"]}C")
+                            ],
+                          );
+                        } else if (state is WeatherFailure) {
+                          return Center(
+                            child: Text(
+                              "Failed to load weather data.",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  context
+                                      .read<WeatherBloc>()
+                                      .add(FetchWeather("cairo"));
+                                },
+                                child: Text("load weather")),
+                          );
+                        }
+                      },
+                    ),
                     _buildWeatherDetails(),
                     const Gap(40),
                     Padding(
@@ -88,43 +127,35 @@ class _HomeState extends State<Home> {
   }
 
   Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Abu Kabir", style: TextStyle(color: Colors.white, fontSize: 18)),
-        Text(
-          "Good Morning",
-          style: TextStyle(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-      ],
+    return BlocBuilder<WeatherBloc, WeatherState>(
+      builder: (context, state) {
+        String location = 'unknown';
+        if (state is WeatherLoaded) {
+          location = state.weatherData['location']['name'];
+        }
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Abu Kabir",
+                style: TextStyle(color: Colors.white, fontSize: 18)),
+            Text(
+              "Good Morning",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        );
+      },
     );
-  }
-
-//* test fetch weather
-  String? weatherInfo;
-  final WeatherServices weatherService = WeatherServices();
-  Future<void> fetchWeather() async {
-    try {
-      final weatherData = await weatherService.getWeather("London");
-      setState(() {
-        weatherInfo =
-            "Location: ${weatherData['location']['name']}, ${weatherData['location']['country']}\n"
-            "Temperature: ${weatherData['current']['temp_c']}°C\n"
-            "Condition: ${weatherData['current']['condition']['text']}";
-      });
-    } catch (e) {
-      setState(() {
-        weatherInfo = "Failed to load weather data";
-      });
-    }
   }
 
   Widget _buildWeatherDetails() {
     return Column(
       children: [
         GestureDetector(
-          onTap: fetchWeather,
+          onTap: () {},
           child: Center(
             child: Image.asset(
               "assets/1.png",
